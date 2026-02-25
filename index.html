@@ -1,89 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Portal do Cliente</title>
-
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #03363d, #1f6f8b);
-      font-family: Arial, sans-serif;
-    }
-
-    .login-box {
-      background: white;
-      padding: 40px;
-      border-radius: 15px;
-      width: 320px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-
-    h2 {
-      margin-bottom: 25px;
-      color: #03363d;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      background: #30aabc;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #2592a3;
-    }
-
-    .support-btn {
-      margin-top: 15px;
-      display: block;
-      text-decoration: none;
-      color: #03363d;
-      font-weight: bold;
-    }
-
-    .status {
-      margin-top: 10px;
-      font-size: 14px;
-      color: green;
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="login-box">
-    <h2>Portal do Cliente</h2>
-
-    <input type="text" id="name" placeholder="Seu nome">
-    <input type="email" id="email" placeholder="Seu e-mail">
-
-    <button onclick="login()">Entrar</button>
-
-    <a id="suporteLink" class="support-btn" href="#">Ajuda e Suporte</a>
-
-    <div id="status" class="status"></div>
-  </div>
-
 <script>
 function login() {
   const name = document.getElementById("name").value;
@@ -94,15 +8,11 @@ function login() {
     return;
   }
 
-  const zendeskUrl =
-    "https://testerobertomarinho.zendesk.com/hc/pt-br/requests/new?ticket_form_id=43817290105997" +
-    "&tf_43818757097357=" + encodeURIComponent(name) +
-    "&tf_43818820866957=" + encodeURIComponent(email);
+  const zendeskUrl = "https://testerobertomarinho.zendesk.com/hc/pt-br/requests/new?ticket_form_id=43817290105997&tf_43818757097357=" 
+    + encodeURIComponent(name) 
+    + "&tf_43818820866957=" 
+    + encodeURIComponent(email);
 
-  document.getElementById("suporteLink").href = zendeskUrl;
-  document.getElementById("status").innerText = "Usuário logado com sucesso!";
+  window.location.href = zendeskUrl;
 }
 </script>
-
-</body>
-</html>
