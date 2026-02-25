@@ -3,101 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <title>Portal do Cliente</title>
+
   <style>
     body {
-      font-family: Arial;
       margin: 0;
-      padding: 0;
-    }
-
-    .header {
-      background: #03363d;
-      color: white;
-      padding: 15px;
+      height: 100vh;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      background: linear-gradient(135deg, #03363d, #1f6f8b);
+      font-family: Arial, sans-serif;
     }
 
-    .btn-suporte {
-      background: #30aabc;
-      color: white;
-      padding: 8px 15px;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-    }
-
-    .container {
+    .login-box {
+      background: white;
       padding: 40px;
+      border-radius: 15px;
+      width: 320px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      color: #03363d;
     }
 
     input {
-      padding: 8px;
-      margin-bottom: 10px;
-      width: 250px;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
     }
 
     button {
-      padding: 8px 15px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #30aabc;
+      color: white;
+      font-weight: bold;
       cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #2592a3;
+    }
+
+    .support-btn {
+      margin-top: 15px;
+      display: block;
+      text-decoration: none;
+      color: #03363d;
+      font-weight: bold;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 14px;
+      color: green;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="header">
-    <h3>Portal do Cliente</h3>
-    <a id="suporteLink" class="btn-suporte" href="#">Ajuda e Suporte</a>
-  </div>
+  <div class="login-box">
+    <h2>Portal do Cliente</h2>
 
-  <div class="container">
-    <h2>Login</h2>
+    <input type="text" id="name" placeholder="Seu nome">
+    <input type="email" id="email" placeholder="Seu e-mail">
 
-    <input type="text" id="name" placeholder="Seu nome"><br>
-    <input type="email" id="email" placeholder="Seu e-mail"><br>
     <button onclick="login()">Entrar</button>
 
-    <p id="status"></p>
+    <a id="suporteLink" class="support-btn" href="#">Ajuda e Suporte</a>
+
+    <div id="status" class="status"></div>
   </div>
 
-  <script>
-    function login() {
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
+<script>
+function login() {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
 
-      if (!name || !email) {
-        alert("Preencha nome e e-mail");
-        return;
-      }
+  if (!name || !email) {
+    alert("Preencha nome e e-mail");
+    return;
+  }
 
-      localStorage.setItem("userName", name);
-      localStorage.setItem("userEmail", email);
+  const zendeskUrl =
+    "https://testerobertomarinho.zendesk.com/hc/pt-br/requests/new?ticket_form_id=43817290105997" +
+    "&tf_43818757097357=" + encodeURIComponent(name) +
+    "&tf_43818820866957=" + encodeURIComponent(email);
 
-      document.getElementById("status").innerText = 
-        "Usuário logado: " + name;
-      
-      atualizarLinkSuporte();
-    }
-
-    function atualizarLinkSuporte() {
-      const name = localStorage.getItem("userName");
-      const email = localStorage.getItem("userEmail");
-
-      if (name && email) {
-        const zendeskUrl = 
-          "https://testerobertomarinho.zendesk.com/hc/pt-br/requests/new" +
-          "&name=" + encodeURIComponent(name) +
-          "&email=" + encodeURIComponent(email);
-
-        document.getElementById("suporteLink").href = zendeskUrl;
-      }
-    }
-
-    // Executa ao carregar a página
-    atualizarLinkSuporte();
-  </script>
+  document.getElementById("suporteLink").href = zendeskUrl;
+  document.getElementById("status").innerText = "Usuário logado com sucesso!";
+}
+</script>
 
 </body>
 </html>
