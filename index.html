@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Portal do Cliente</title>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background: #03363d;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-suporte {
+      background: #30aabc;
+      color: white;
+      padding: 8px 15px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 40px;
+    }
+
+    input {
+      padding: 8px;
+      margin-bottom: 10px;
+      width: 250px;
+    }
+
+    button {
+      padding: 8px 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <h3>Portal do Cliente</h3>
+    <a id="suporteLink" class="btn-suporte" href="#">Ajuda e Suporte</a>
+  </div>
+
+  <div class="container">
+    <h2>Login</h2>
+
+    <input type="text" id="name" placeholder="Seu nome"><br>
+    <input type="email" id="email" placeholder="Seu e-mail"><br>
+    <button onclick="login()">Entrar</button>
+
+    <p id="status"></p>
+  </div>
+
+  <script>
+    function login() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+
+      if (!name || !email) {
+        alert("Preencha nome e e-mail");
+        return;
+      }
+
+      localStorage.setItem("userName", name);
+      localStorage.setItem("userEmail", email);
+
+      document.getElementById("status").innerText = 
+        "Usuário logado: " + name;
+      
+      atualizarLinkSuporte();
+    }
+
+    function atualizarLinkSuporte() {
+      const name = localStorage.getItem("userName");
+      const email = localStorage.getItem("userEmail");
+
+      if (name && email) {
+        const zendeskUrl = 
+          "https://d3v-jvbti.zendesk.com/hc/pt-br/requests/new?ticket_form_id=43817290105997" +
+          "&name=" + encodeURIComponent(name) +
+          "&email=" + encodeURIComponent(email);
+
+        document.getElementById("suporteLink").href = zendeskUrl;
+      }
+    }
+
+    // Executa ao carregar a página
+    atualizarLinkSuporte();
+  </script>
+
+</body>
+</html>
